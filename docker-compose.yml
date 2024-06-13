@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  node-project:
+    container_name: e-commerce-app
+    image: node:16
+    build: .
+    ports: 
+      - "5000:5000"
+    environment:
+      - POSTGRES_DB=e-commerce
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=node-db
+    depends_on:
+      - node-db
+    restart: always
+    volumes: 
+      - .:/app
+
+  node-db:
+    container_name: e-commerce-db
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=e-commerce
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=localhost
