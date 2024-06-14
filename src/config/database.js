@@ -4,11 +4,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const sequelize = new Sequelize(
-    process.env.POSTGRES_DB,
-    process.env.POSTGRES_USER,
-    process.env.POSTGRES_PASSWORD,
+    process.env.PG_DB,
+    process.env.PG_USER,
+    process.env.PG_PASSWORD,
     {
-        host: process.env.POSTGRES_HOST,
+        host: process.env.PG_HOST,
         dialect: 'postgres',
     }
 );

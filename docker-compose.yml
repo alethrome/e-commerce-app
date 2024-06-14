@@ -3,16 +3,15 @@ version: '3'
 services:
   node-project:
     container_name: e-commerce-app
-    image: node:16
+    image: alethrome/e-commerce-app
     build: .
     ports: 
       - "5000:5000"
     environment:
-      - POSTGRES_DB=e-commerce
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_PORT=5432
-      - POSTGRES_HOST=node-db
+      - PG_DB=e-commerce
+      - PG_USER=postgres
+      - PG_PASSWORD=password
+      - PG_HOST=e-commerce-db
     depends_on:
       - node-db
     restart: always
@@ -23,10 +22,12 @@ services:
     container_name: e-commerce-db
     image: postgres:12
     ports:
-      - "5432:5432"
+      - "8080:5432"
     environment:
       - POSTGRES_DB=e-commerce
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-      - POSTGRES_PORT=5432
-      - POSTGRES_HOST=localhost
+
+      
+
+
