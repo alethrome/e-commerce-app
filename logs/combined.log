@@ -1,0 +1,3 @@
+info: ::1 - - [18/Jun/2024:03:00:00 +0000] "POST /user/register HTTP/1.1" 200 271 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T03:00:00.802Z"}
+error: Error creating new user: Validation error {"timestamp":"2024-06-18T03:00:33.360Z"}
+info: ::1 - - [18/Jun/2024:03:00:33 +0000] "POST /user/register HTTP/1.1" 400 46 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T03:00:33.362Z"}

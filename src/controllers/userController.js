@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
+const logger = require('../config/logger');
 
 async function registerUser(req, res, next) {
     try {
@@ -21,6 +22,7 @@ async function registerUser(req, res, next) {
         });
     }
     catch(err) {
+        logger.error(`Error creating new user: ${err.message}`);
         return res.status(400).json({
             success: false,
             message: err.message
