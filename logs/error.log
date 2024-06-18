@@ -7,3 +7,5 @@ error: Error creating new product: WHERE parameter "id" has invalid "undefined" 
 error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:35:20.221Z"}
 error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:41:10.757Z"}
 error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:42:06.748Z"}
+error: Authentication error: jwt is not defined {"timestamp":"2024-06-18T07:29:59.631Z"}
+error: Authentication error: jwt is not defined {"timestamp":"2024-06-18T07:30:10.457Z"}

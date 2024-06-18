@@ -6,9 +6,10 @@ const { createProduct,
     getProductById, 
     updateProduct, 
     deleteProduct } = require('../controllers/productController');
+const { authenticateUser } = require('../middlewares/authMiddleware');
 
 router.post('/create', createProduct);
-router.get('/all', getAllProducts);
+router.get('/all', authenticateUser, getAllProducts);
 router.get('/:productId', getProductById);
 router.put('/:productId', updateProduct);
 router.delete('/:productId', deleteProduct);
