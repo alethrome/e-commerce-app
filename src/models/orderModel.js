@@ -9,11 +9,7 @@ const Order = sequelize.define('Order', {
     },
     user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'User',
-            key: 'id'
-        }
+        allowNull: false
     },
     total_amount: {
         type: DataTypes.FLOAT,
@@ -25,4 +21,4 @@ const Order = sequelize.define('Order', {
     }
 });
 
-module.exports = CartItem;
+module.exports = Order;

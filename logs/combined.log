@@ -1,3 +1,26 @@
 info: ::1 - - [18/Jun/2024:03:00:00 +0000] "POST /user/register HTTP/1.1" 200 271 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T03:00:00.802Z"}
 error: Error creating new user: Validation error {"timestamp":"2024-06-18T03:00:33.360Z"}
 info: ::1 - - [18/Jun/2024:03:00:33 +0000] "POST /user/register HTTP/1.1" 400 46 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T03:00:33.362Z"}
+info: ::1 - - [18/Jun/2024:06:04:28 +0000] "GET /product/all HTTP/1.1" 200 2 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:04:28.751Z"}
+error: Error fetching product: invalid input syntax for type integer: "create" {"timestamp":"2024-06-18T06:04:40.166Z"}
+info: ::1 - - [18/Jun/2024:06:04:40 +0000] "GET /product/create HTTP/1.1" 400 79 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:04:40.168Z"}
+info: ::1 - - [18/Jun/2024:06:05:01 +0000] "GET /product/all HTTP/1.1" 200 2 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:05:01.757Z"}
+error: Error fetching product: invalid input syntax for type integer: "create" {"timestamp":"2024-06-18T06:07:17.662Z"}
+info: ::1 - - [18/Jun/2024:06:07:17 +0000] "GET /product/create HTTP/1.1" 400 79 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:07:17.663Z"}
+error: Error fetching product: invalid input syntax for type integer: "create" {"timestamp":"2024-06-18T06:08:42.625Z"}
+info: ::1 - - [18/Jun/2024:06:08:42 +0000] "GET /product/create HTTP/1.1" 400 79 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:08:42.627Z"}
+error: Error fetching product: invalid input syntax for type integer: "create" {"timestamp":"2024-06-18T06:11:45.437Z"}
+info: ::1 - - [18/Jun/2024:06:11:45 +0000] "GET /product/create HTTP/1.1" 400 79 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:11:45.443Z"}
+info: ::1 - - [18/Jun/2024:06:17:08 +0000] "POST /product/create HTTP/1.1" 200 377 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:17:08.390Z"}
+info: ::1 - - [18/Jun/2024:06:18:24 +0000] "GET /product/all HTTP/1.1" 200 307 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:18:24.655Z"}
+info: ::1 - - [18/Jun/2024:06:26:41 +0000] "GET /product/1 HTTP/1.1" 200 305 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:26:41.207Z"}
+error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:32:29.507Z"}
+info: ::1 - - [18/Jun/2024:06:32:29 +0000] "PUT /product/1 HTTP/1.1" 400 84 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:32:29.509Z"}
+error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:35:20.221Z"}
+info: ::1 - - [18/Jun/2024:06:35:20 +0000] "PUT /product/1 HTTP/1.1" 400 84 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:35:20.222Z"}
+info: ::1 - - [18/Jun/2024:06:35:27 +0000] "PUT /product/1 HTTP/1.1" 200 390 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:35:27.709Z"}
+info: ::1 - - [18/Jun/2024:06:37:44 +0000] "PUT /product/1 HTTP/1.1" 200 382 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:37:44.108Z"}
+error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:41:10.757Z"}
+info: ::1 - - [18/Jun/2024:06:41:10 +0000] "DELETE /product/1 HTTP/1.1" 400 84 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:41:10.759Z"}
+error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:42:06.748Z"}
+info: ::1 - - [18/Jun/2024:06:42:06 +0000] "DELETE /product/1 HTTP/1.1" 400 84 "-" "PostmanRuntime/7.39.0" {"timestamp":"2024-06-18T06:42:06.749Z"}

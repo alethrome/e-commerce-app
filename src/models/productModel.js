@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database.js');
+const CartItem = require('./cartItemModel.js');
 
 const Product = sequelize.define('Product', {
     name: {
@@ -18,6 +19,10 @@ const Product = sequelize.define('Product', {
         type: DataTypes.STRING,
         allowNull: true
     }
+});
+
+Product.hasMany(CartItem, {
+    onDelete: 'CASCADE'
 });
 
 module.exports = Product;

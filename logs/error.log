@@ -1,1 +1,9 @@
 error: Error creating new user: Validation error {"timestamp":"2024-06-18T03:00:33.360Z"}
+error: Error fetching product: invalid input syntax for type integer: "create" {"timestamp":"2024-06-18T06:04:40.166Z"}
+error: Error fetching product: invalid input syntax for type integer: "create" {"timestamp":"2024-06-18T06:07:17.662Z"}
+error: Error fetching product: invalid input syntax for type integer: "create" {"timestamp":"2024-06-18T06:08:42.625Z"}
+error: Error fetching product: invalid input syntax for type integer: "create" {"timestamp":"2024-06-18T06:11:45.437Z"}
+error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:32:29.507Z"}
+error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:35:20.221Z"}
+error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:41:10.757Z"}
+error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:42:06.748Z"}
