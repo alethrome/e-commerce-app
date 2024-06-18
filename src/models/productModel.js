@@ -22,7 +22,8 @@ const Product = sequelize.define('Product', {
 });
 
 Product.hasMany(CartItem, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    foreignKey: 'product_id'
 });
 
 module.exports = Product;

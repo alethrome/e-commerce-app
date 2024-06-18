@@ -11,11 +11,19 @@ const CartItem = sequelize.define('CartItem', {
     },
     user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        reference: {
+            model: User,
+            key: 'id'
+        }
     },
     product_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        reference: {
+            model: Product,
+            key: 'id'
+        }
     },
     quantity: {
         type: DataTypes.INTEGER,

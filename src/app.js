@@ -6,6 +6,8 @@ const app = express();
 const userRouter = require('./routes/userRoutes');
 const authRouter = require('./routes/authRoutes');
 const productRouter = require('./routes/productRoutes');
+const cartRouter = require('./routes/cartRoutes');
+
 const logger = require('./config/logger');
 
 app.use(express.json());
@@ -18,5 +20,6 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter);
 app.use('/login', authRouter);
 app.use('/product', productRouter);
+app.use('/cart', cartRouter);
 
 module.exports = app;

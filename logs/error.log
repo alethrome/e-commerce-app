@@ -9,3 +9,10 @@ error: Error creating new product: WHERE parameter "id" has invalid "undefined" 
 error: Error creating new product: WHERE parameter "id" has invalid "undefined" value {"timestamp":"2024-06-18T06:42:06.748Z"}
 error: Authentication error: jwt is not defined {"timestamp":"2024-06-18T07:29:59.631Z"}
 error: Authentication error: jwt is not defined {"timestamp":"2024-06-18T07:30:10.457Z"}
+error: Authentication error: invalid token {"timestamp":"2024-06-18T07:31:48.841Z"}
+error: Authentication error: jwt expired {"timestamp":"2024-06-18T09:41:10.580Z"}
+error: Authentication error: jwt expired {"timestamp":"2024-06-18T10:03:14.965Z"}
+error: Error adding item to cart: quantity is not defined {"timestamp":"2024-06-18T10:04:11.936Z"}
+error: Error adding item to cart: invalid input syntax for type integer: "NaN" {"timestamp":"2024-06-18T10:04:51.022Z"}
+error: Error adding item to cart: invalid input syntax for type integer: "NaN" {"timestamp":"2024-06-18T10:05:51.773Z"}
+error: Authentication error: jwt expired {"timestamp":"2024-06-18T10:15:16.912Z"}
