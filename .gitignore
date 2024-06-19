@@ -13,4 +13,7 @@ src/uploads/
 src/migrations/
 src/migrations
 src/config/config.json
+seeders/
+
+tests/
 
