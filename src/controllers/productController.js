@@ -2,9 +2,15 @@ const Product = require('../models/productModel');
 const logger = require('../config/logger');
 
 async function createProduct(req, res) {
+    const imageURL = req.file ? req.file.path : null;
+    const price = parseFloat(req.body.price);
+
     try {
         const newProduct = await Product.create({
-            ...req.body
+            name: req.body.name,
+            price,
+            description: req.body.description,
+            imageURL: req.file ? req.file.path : null
         });
     
         return res.status(200).json({
