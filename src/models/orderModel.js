@@ -18,6 +18,10 @@ const Order = sequelize.define('Order', {
     order_date: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
+    },
+    status: {
+        type: DataTypes.ENUM('pending', 'paid', 'completed', 'cancelled'),
+        defaultValue: 'pending'
     }
 });
 

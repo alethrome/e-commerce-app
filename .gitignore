@@ -6,4 +6,11 @@ logs/
 logs
 *.log
 
+# Local Files
 src/uploads/
+
+# DB
+src/migrations/
+src/migrations
+src/config/config.json
+

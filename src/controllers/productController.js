@@ -2,7 +2,6 @@ const Product = require('../models/productModel');
 const logger = require('../config/logger');
 
 async function createProduct(req, res) {
-    const imageURL = req.file ? req.file.path : null;
     const price = parseFloat(req.body.price);
 
     try {
