@@ -5,9 +5,11 @@ async function createCartItem(req, res) {
     try {
         const [item, created] = await CartItem.findOrCreate({
             where: { product_id: req.body.product_id },
-            product_id: req.body.product_id,
-            user_id: req.user.userId,
-            quantity: req.body.quantity
+            defaults : {
+                product_id: req.body.product_id,
+                user_id: req.user.userId,
+                quantity: req.body.quantity
+            }
         });
 
         if(!created) {
@@ -31,7 +33,7 @@ async function createCartItem(req, res) {
         return res.status(200).json({
             success: true,
             message: 'Product successfully added to cart.',
-            created
+            created: item
         });
     } catch(err) {
         logger.error(`Error adding item to cart: ${err.message}`);
@@ -44,7 +46,7 @@ async function createCartItem(req, res) {
 
 async function getCartItems(req, res) {
     try {
-        const cartItems = await findAll({
+        const cartItems = await CartItem.findAll({
             where: { user_id: req.user.userId }
         });
 
@@ -65,7 +67,7 @@ async function updateItemQuantity(req, res) {
             { where: { 
                 cart_id: req.params.itemId,
                 user_id: req.user.userId
-            }}
+            }, returning: true }
         );
 
         if(updatedItem[0] === 0) {
@@ -76,12 +78,10 @@ async function updateItemQuantity(req, res) {
             });  
         };
 
-        const itemData = updatedItem[1];
-
         return res.status(200).json({
-            successs: true,
+            success: true,
             message: 'Quantity is updated.',
-            itemData
+            updatedItem: updatedItem[1]
         });
     } catch(err) {
         logger.error(`Error updating quantity: ${err.message}`);
@@ -90,7 +90,7 @@ async function updateItemQuantity(req, res) {
             message: err.message
         });
     }
-}
+};
 
 async function removeCartItem(req, res) {
     try {
@@ -102,14 +102,14 @@ async function removeCartItem(req, res) {
         });
 
         if (cartItem) {
-            const removedItem = await CartItem.destroy({
+            await CartItem.destroy({
                 where: { cart_id: cartItem.cart_id }
             });
 
             return res.status(200).json({
                 success: true,
                 message: 'Item successfully removed from cart.',
-                removedItem
+                removedItem: cartItem
             });
         } else {
             logger.warn('Item not found.')
