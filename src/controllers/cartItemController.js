@@ -1,4 +1,4 @@
-const CartItem = require('../models/cartItemModel');
+const { CartItem } = require('../models');
 const logger = require('../config/logger');
 
 async function createCartItem(req, res) {

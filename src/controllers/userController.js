@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
-const User = require('../models/userModel');
+const { User } = require('../models');
 const logger = require('../config/logger');
+
+//const user = new User;
 
 async function registerUser(req, res, next) {
     try {

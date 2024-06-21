@@ -1,7 +1,6 @@
 const sequelize = require('../config/database');
 const logger = require('../config/logger');
-const OrderItem = require('../models/orderItemModel');
-const Order = require('../models/orderModel');
+const { Order, OrderItem, Product } = require('../models');
 
 async function createOrder(req, res) {
     const { products } = req.body
@@ -13,7 +12,11 @@ async function createOrder(req, res) {
         transaction = await sequelize.transaction();    
 
         for(const cartItem of products) {
-            const itemPrice = cartItem.quantity * cartItem.price;
+            const product = await Product.findOne({
+                where: { id: cartItem.product_id }
+            });
+
+            const itemPrice = cartItem.quantity * product.price;
 
             totalPrice += itemPrice;
         };

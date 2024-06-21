@@ -6,7 +6,7 @@ const path = require('path');
 
 dotenv.config();
 
-const User = require('../models/userModel');
+const { User } = require('../models');
 
 const filepath = path.join(__dirname, '../keys', 'private_key.pem');
 const privateKey = fs.readFileSync(filepath, 'utf8');

@@ -1,4 +1,4 @@
-const Product = require('../models/productModel');
+const { Product } = require('../models');
 const logger = require('../config/logger');
 
 async function createProduct(req, res) {

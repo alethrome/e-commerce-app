@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
-const Product = require('../src/models/productModel');
+const { Product } = require('../src/models');
 const { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } = require('../src/controllers/productController');
 
 describe('PRODUCTS', () => {
@@ -12,7 +12,7 @@ describe('PRODUCTS', () => {
             status: sinon.stub().returnsThis(),
             json: sinon.spy()
         };
-    })
+    });
     
     afterEach(() => {
         sinon.restore();

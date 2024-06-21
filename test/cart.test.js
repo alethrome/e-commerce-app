@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
-const CartItem = require('../src/models/cartItemModel');
+const { CartItem } = require('../src/models');
 const { createCartItem, getCartItems, updateItemQuantity, removeCartItem } = require('../src/controllers/cartItemController');
 
 describe('CART ITEMS', () => {
