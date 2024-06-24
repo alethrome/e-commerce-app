@@ -1,8 +1,22 @@
 const { expect } = require('chai');
+const request = require('supertest');
 const sinon = require('sinon');
 
+const app = require('../src/app');
 const { Product } = require('../src/models');
 const { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } = require('../src/controllers/productController');
+
+// describe('Products API endpoints', () => {
+//     describe('POST /product/create', () => {
+//         it('should return 200 status code and', async() => {
+//             const response = await request(app)
+//                 .post('/product/create')
+//                 .set('Authorization', 'Bearer validtoken')
+//                 .send({ name: 'name', price: '54.50' });
+//             expect(response.status).to.be.equal(200);
+//         })
+//     })
+// })
 
 describe('PRODUCTS', () => {
     let res;

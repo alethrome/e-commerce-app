@@ -10,6 +10,7 @@ const cartRouter = require('./routes/cartRoutes');
 const orderRouter = require('./routes/orderRoutes');
 
 const logger = require('./config/logger');
+const setupSwagger = require('./swagger');
 
 app.use(express.json());
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }))
@@ -23,5 +24,7 @@ app.use('/login', authRouter);
 app.use('/product', productRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
+
+setupSwagger(app);
 
 module.exports = app;

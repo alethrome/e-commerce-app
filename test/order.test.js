@@ -6,7 +6,7 @@ const sequelize = require('../src/config/database');
 const { OrderItem }= require('../src/models');
 const { Product } = require('../src/models');
 const { Order } = require('../src/models');
-const { createOrder } = require('../src/controllers/orderController');
+const { createOrder, getOrders, getOrderById } = require('../src/controllers/orderController');
 
 describe('ORDERS', () => {
     let res;
@@ -71,6 +71,44 @@ describe('ORDERS', () => {
             user: { userId: 123 }
         };
 
-        sinon.stub(Order, 'findAll').resolves({ orders:[]});
+        const mockOrder = [
+            { order_id: 1, user_id: 123, total_amount: 500 },
+            { order_id: 2, user_id: 123, total_amount: 150.75 }
+        ];
+
+        const mockOrderItem = [
+            { order_id: 1, product_id: 1, quantity: 2 },
+            { order_id: 2, product_id: 2, quantity: 3 },
+            { order_id: 2, product_id: 4, quantity: 1 }
+        ];
+
+        sinon.stub(Order, 'findAll').resolves(mockOrder);
+        sinon.stub(OrderItem, 'findAll').resolves(mockOrderItem);
+
+        await getOrders(req, res);
+
+        expect(res.status.calledWith(200)).to.be.true;
+        expect(res.json.firstCall.args[0]).to.have.key('Orders');
+    })
+
+    it('should get an order by id', async() => {
+        const req = {
+            user: { userId: 123 },
+            params: { orderId: 3 }
+        };
+
+        const mockOrderItem = [
+            { order_id: 3, product_id: 1, quantity: 2 },
+            { order_id: 3, product_id: 2, quantity: 3 },
+            { order_id: 3, product_id: 4, quantity: 1 }
+        ];
+
+        sinon.stub(Order, 'findOne').resolves({ order_id: req.params.orderId })
+        sinon.stub(OrderItem, 'findAll').resolves(mockOrderItem);
+
+        await getOrderById(req, res);
+
+        expect(res.status.calledWith(200)).to.be.true;
+        expect(res.json.firstCall.args[0]).to.include.all.keys('Order', 'Products');
     })
 });

@@ -17,5 +17,3 @@ src/migrations
 src/config/config.json
 seeders/
 
-tests/
-

@@ -1,4 +1,3 @@
-version: '3'
 
 services:
   node-project:
@@ -28,6 +27,22 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
 
+  migrate:
+    image: node:20
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: >
+      sh -c "
+      npm install &&
+      npx sequelize-cli db:migrate --migrations-path src/migrations --config src/config/config.json --models-path src/models"
+    environment:
+      - PG_DB=e-commerce
+      - PG_USER=postgres
+      - PG_PASSWORD=password
+      - PG_HOST=e-commerce-db
+    depends_on:
+      - node-db
       
 
 
