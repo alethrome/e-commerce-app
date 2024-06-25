@@ -119,8 +119,57 @@ async function getOrderById(req, res) {
     }
 };
 
+async function payOrder(req, res) {
+    try {
+        const { card_holder, card_number, exp_date, cvv } = req.body;
+
+        const order = await Order.findOne({
+            where: { 
+                order_id: req.params.orderId,
+                user_id: req.user.userId
+            }
+        });
+    
+        if(!order) {
+            logger.warn('Order not found.');
+    
+            return res.status(404).json({
+                success: false,
+                message: 'Order not found.'
+            });
+        };
+    
+        if(!card_holder || !card_number || !exp_date || !cvv ) {
+            logger.warn('Missing required fields.');
+    
+            return res.status(400).json({
+                success: false,
+                message: 'Missing required fields.'
+            });
+        };
+    
+        const updatedOrder = await Order.update(
+            { status: 'paid' },
+            { where: { order_id: req.params.orderId }, returning: true }
+        );
+    
+        return res.status(200).json({
+            success: true,
+            message: `Order number ${req.params.orderId} is paid`,
+            updatedOrder
+        });
+    } catch(err) {
+        logger.error(`Error fetching order: ${err.message}`);
+        return res.status(400).json({
+            success: false,
+            message: err.message
+        });
+    }  
+};
+
 module.exports = { 
     createOrder,
     getOrders,
-    getOrderById
+    getOrderById,
+    payOrder
 };

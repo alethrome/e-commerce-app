@@ -1,0 +1,544 @@
+openapi: 3.0.3
+info:
+  title: E-commerce App
+  version: "1.0.0"
+servers:
+  - url: https://localhost:5000
+paths:
+  /product/create:
+    post:
+      tags:
+        - Product
+      description: Create new product record
+      requestBody:
+        description: Create new product record
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: 
+                name:
+                    type: string
+                    description: Product name
+                price:
+                  type: number
+                  format: int64
+                  description: Product price
+                description:
+                  type: string
+                  description: Product description
+                image:
+                  type: string
+                  format: binary
+                  description: Product image file
+              required:
+                - name
+                - price
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Product successfully created.
+                  newProduct:
+                    $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid request
+  /product/all:
+    get:
+      tags:
+        - Product
+      description: Get product records
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid request
+  /product/{productId}:
+    get:
+      tags:
+        - Product
+      description: Get product by ID
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Record not found
+        '400':
+          description: Invalid request
+    put:
+      tags:
+        - Product
+      description: Update product
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update product
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                name:
+                    type: string
+                    description: Product name
+                price:
+                  type: number
+                  format: int64
+                  description: Product price
+                description:
+                  type: string
+                  description: Product description
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Product successfully updated.
+                  productData:
+                    $ref: '#/components/schemas/Product'
+        '404':
+          description: Record not found
+        '400':
+          description: Invalid request
+    delete:
+      tags:
+        - Product
+      description: Delete a product
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Product successfully deleted.
+                  deletedProduct: 
+                    type: integer
+                    example: 1
+        '404':
+          description: Record not found
+        '400':
+          description: Invalid request
+  /cart/insert:
+    post:
+      tags:
+        - Cart
+      description: Create new cart item
+      requestBody:
+        description: Create new cart item
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                product_id:
+                  type: integer
+                  description: Product ID
+                  example: 4
+                quantity:
+                  type: number
+                  example: 3
+              required:
+                - product_id
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Product successfully added to cart.
+                  created:
+                    $ref: '#/components/schemas/CartItem'
+        '400':
+          description: Invalid request
+  /cart/all:
+    get:
+      tags:
+        - Cart
+      description: Items in cart
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:  
+                  $ref: '#/components/schemas/CartItem'
+        '400':
+          description: Invalid request
+  /cart/{cartId}:
+    put:
+      tags:
+        - Cart
+      description: Update cart item quantity
+      parameters:
+        - in: path
+          name: cartId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update cart item quantity
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: number
+                  example: 3
+              required:
+                - quantity
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+        '404':
+          description: Record not found
+        '400':
+          description: Invalid request
+    delete:
+      tags:
+        - Cart
+      description: Remove item from cart
+      parameters:
+        - in: path
+          name: cartId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Item successfully removed from cart.
+                  deletedProduct: 
+                    $ref: '#/components/schemas/CartItem'
+        '404':
+          description: Record not found
+        '400':
+          description: Invalid request
+  /order:
+    post:
+      tags:
+        - Order
+      description: Create new cart item
+      requestBody:
+        description: Create new cart item
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                product_id:
+                  type: integer
+                  description: Product ID
+                  example: 4
+                quantity:
+                  type: number
+                  example: 3
+              required:
+                - product_id
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Product successfully added to cart.
+                  created:
+                    $ref: '#/components/schemas/CartItem'
+        '400':
+          description: Invalid request
+  /order/list:
+    get:
+      tags:
+        - Order
+      description: Order list
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:  
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid request
+  /order/{orderId}:
+    get:
+      tags:
+        - Order
+      description: Order record
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid request
+  /user/register:
+    post:
+      tags:
+        - User
+      description: Register new user
+      requestBody:
+        description: Register new user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                name:
+                  type: string
+                  example: John Bravo
+                username:
+                  type: string
+                  example: johnnybravo
+                password:
+                  type: string
+                  example: passWORD1023%%
+              required:
+                - product_id
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User successfully registered.
+                  userData:
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request
+  /login:
+    post:
+      tags:
+        - User
+      description: Login user
+      requestBody:
+        description: Login user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                name:
+                  type: string
+                  example: John Bravo
+                username:
+                  type: string
+                  example: johnnybravo
+                password:
+                  type: string
+                  example: passWORD1023%%
+              required:
+                - name
+                - username
+                - password
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User successfully registered.
+                  userData:
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request
+components:
+  schemas:
+    Product:
+        properties:
+            id:
+              type: integer
+              format: int64
+            name:
+              type: string
+              example: backpack 
+            price:
+              type: number
+              format: int64
+              example: 7.50
+            description:
+              type: string
+            imageURL:
+              type: string
+              format: binary
+            updatedAt: 
+              type: string
+              format: date-time
+            createdAt:
+              type: string
+              format: date-time
+    CartItem: 
+        properties:
+            id:
+              type: integer
+              format: int64
+              example: 5
+            cart_id:
+              type: integer
+              format: int64
+              example: 7
+            product_id:
+              type: integer
+              format: int64
+              example: 7
+            quantity:
+              type: integer
+              format: int32
+              example: 3
+            updatedAt: 
+              type: string
+              format: date-time
+            createdAt:
+              type: string
+              format: date-time
+    Order: 
+        properties:
+            order_id:
+              type: integer
+              format: int64
+              example: 5
+            user_id:
+              type: integer
+              format: int64
+              example: 7
+            total_amount:
+              type: number
+              example: 50.5
+            order_date: 
+              type: string
+              format: date-time
+            status:
+              type: string
+              example: pending
+            updatedAt: 
+              type: string
+              format: date-time
+            createdAt:
+              type: string
+              format: date-time
+    User: 
+        properties:
+            id:
+              type: integer
+              format: int64
+              example: 5
+            name:
+              type: string
+              example: John Bravo
+            username:
+              type: string
+              example: johnnybravo
+            password:
+              type: string
+              example: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
