@@ -3,20 +3,9 @@ const request = require('supertest');
 const sinon = require('sinon');
 
 const app = require('../src/app');
+const sequelize = require('../src/config/database.js');
 const { Product } = require('../src/models');
 const { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } = require('../src/controllers/productController');
-
-// describe('Products API endpoints', () => {
-//     describe('POST /product/create', () => {
-//         it('should return 200 status code and', async() => {
-//             const response = await request(app)
-//                 .post('/product/create')
-//                 .set('Authorization', 'Bearer validtoken')
-//                 .send({ name: 'name', price: '54.50' });
-//             expect(response.status).to.be.equal(200);
-//         })
-//     })
-// })
 
 describe('PRODUCTS', () => {
     let res;
@@ -54,7 +43,7 @@ describe('PRODUCTS', () => {
 
         expect(res.status.calledWith(200)).to.be.true;
         expect(res.json.calledWithMatch({
-            success: true,
+            success: true,  
             message: 'Product successfully created.',
             newProduct: {
                 name: req.body.name,

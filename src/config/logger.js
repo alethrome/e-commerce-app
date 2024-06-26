@@ -1,3 +1,4 @@
+const dotenv = require('dotenv');
 const { createLogger, format, transports} = require('winston');
 
 const logger = createLogger({
@@ -18,5 +19,11 @@ const logger = createLogger({
         new transports.File({ filename: 'logs/combined.log' })
     ]
 });
+
+// if (process.env.NODE_ENV === 'test') {
+//     logger.transports.forEach((transport) => {
+//       transport.silent = true;
+//     });
+// }
 
 module.exports = logger;

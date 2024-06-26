@@ -119,6 +119,31 @@ async function getOrderById(req, res) {
     }
 };
 
+async function updateOrderStatus(req, res) {
+    try {
+        const order = await Order.findByPk(req.params.orderId);
+
+        if(order) {
+            const updatedOrder = await Order.update(
+                { status: req.body.status },
+                { where: { order_id: req.params.orderId }, returning: true}
+            );
+
+            return res.status(200).json({
+                success: true,
+                message: 'Order status is successfully updated.',
+                updatedOrder
+            });
+        }
+    } catch(err) {
+        logger.error(`Error fetching order: ${err.message}`);
+        return res.status(400).json({
+            success: false,
+            message: err.message
+        });
+    }
+}
+
 async function payOrder(req, res) {
     try {
         const { card_holder, card_number, exp_date, cvv } = req.body;
@@ -171,5 +196,6 @@ module.exports = {
     createOrder,
     getOrders,
     getOrderById,
+    updateOrderStatus,
     payOrder
 };

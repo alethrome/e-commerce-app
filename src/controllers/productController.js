@@ -1,3 +1,4 @@
+const { unlink } = require('fs');
 const { Product } = require('../models');
 const logger = require('../config/logger');
 
@@ -65,16 +66,32 @@ async function getProductById(req, res) {
 
 async function updateProduct(req, res) {
     try {
+        const price = parseFloat(req.body.price);
         const product = await Product.findByPk(req.params.productId);
 
         if(product) {
             const updatedProduct = await Product.update(
-                { ...req.body },
+                { 
+                    name: req.body.name, 
+                    description: req.body.description,
+                    price: parseFloat(req.body.price), 
+                    imageURL: req.file ? req.file.path : null 
+                },
                 { where: { id: req.params.productId }, returning: true },
             );
 
+            console.log(price);
+            console.log(updatedProduct);
+
+            if(req.file && product.imageURL != null) {
+                unlink(product.imageURL, (err) => {
+                    if (err) throw err;
+                    console.log(`${product.imageURL} is deleted.`);
+                });
+            };
+
             const productData = updatedProduct[1]
-        
+            
             return res.status(200).json({
                 success: true,
                 message: 'Product successfully updated.',
@@ -105,6 +122,13 @@ async function deleteProduct(req, res) {
             const deletedProduct = await Product.destroy({
                 where: { id: product.id }
             });
+
+            if(product.imageURL != null ) {
+                unlink(product.imageURL, (err) => {
+                    if (err) throw err;
+                    console.log(`${product.imageURL} is deleted.`);
+                });   
+            };
 
             return res.status(200).json({
                 success: true,

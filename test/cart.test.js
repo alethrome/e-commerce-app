@@ -19,6 +19,10 @@ describe('CART ITEMS', () => {
     });
 
     it('should add products to cart', async () => {
+        let sandbox;
+
+        sandbox = sinon.createSandbox();
+
         const createdData = {
             product_id: 1,
             user_id: 20,
@@ -34,7 +38,7 @@ describe('CART ITEMS', () => {
             }
         };
 
-        sinon.stub(CartItem, 'findOrCreate').resolves([createdData, true]);
+        sandbox.stub(CartItem, 'findOrCreate').resolves([createdData, true]);
 
         await createCartItem(req, res);
 
@@ -44,6 +48,8 @@ describe('CART ITEMS', () => {
             message: 'Product successfully added to cart.',
             created: createdData
         })).to.be.true;
+
+        sandbox.restore();
     });
 
     it('should get all cart items', async () => {

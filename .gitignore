@@ -12,8 +12,6 @@ logs
 src/uploads/
 
 # DB
-src/migrations/
-src/migrations
 src/config/config.json
 seeders/
 
