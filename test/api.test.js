@@ -31,6 +31,7 @@ describe('Products API endpoints', () => {
 
         const response = await request(app)
             .post('/product/create')
+            .set('Authorization', `Bearer ${token}`)
             .send(req.body);
 
         expect(response.status).to.equal(200);
@@ -71,7 +72,7 @@ describe('Products API endpoints', () => {
         });
     });
 
-    it('PUT /product/:productId', async() => {
+    it('PATCH /product/:productId', async() => {
         let productId;
 
         const req = {
@@ -90,7 +91,7 @@ describe('Products API endpoints', () => {
         productId = createdProduct.id;
 
         const response = await request(app)
-            .put(`/product/${productId}`)
+            .patch(`/product/${productId}`)
             .set('Authorization', `Bearer ${token}`)
             .send(req.body);
 

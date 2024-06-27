@@ -20,10 +20,10 @@ const logger = createLogger({
     ]
 });
 
-// if (process.env.NODE_ENV === 'test') {
-//     logger.transports.forEach((transport) => {
-//       transport.silent = true;
-//     });
-// }
+if (process.env.NODE_ENV === 'test') {
+    logger.transports.forEach((transport) => {
+      transport.silent = true;
+    });
+}
 
 module.exports = logger;

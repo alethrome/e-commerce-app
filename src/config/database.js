@@ -4,8 +4,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const config = require('./config.json')[process.env.NODE_ENV || 'development'];
 
-console.log(config);
-
 const sequelize = new Sequelize(
     config.database,
     config.username,

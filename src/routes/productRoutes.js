@@ -5,7 +5,8 @@ const { createProduct,
     getAllProducts, 
     getProductById, 
     updateProduct, 
-    deleteProduct } = require('../controllers/productController');
+    deleteProduct, 
+    getAllProductsWithPagination} = require('../controllers/productController');
 const { authenticateUser } = require('../middlewares/authMiddleware');
 const { upload } = require('../middlewares/uploadMiddleware');
 
@@ -14,5 +15,7 @@ router.get('/all', authenticateUser, getAllProducts);
 router.get('/:productId', authenticateUser, getProductById);
 router.patch('/:productId', authenticateUser, upload.single('image'), updateProduct);
 router.delete('/:productId', authenticateUser, deleteProduct);
+
+router.get('/all/test', getAllProductsWithPagination);
 
 module.exports = router;

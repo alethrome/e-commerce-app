@@ -3,13 +3,15 @@ info:
   title: E-commerce App
   version: "1.0.0"
 servers:
-  - url: https://localhost:5000
+  - url: http://localhost:5000
 paths:
   /product/create:
     post:
       tags:
         - Product
       description: Create new product record
+      security:
+        - BearerAuth: []
       requestBody:
         description: Create new product record
         content:
@@ -58,6 +60,8 @@ paths:
       tags:
         - Product
       description: Get product records
+      security:
+        - BearerAuth: []  
       responses:
         '200':
           description: Successful operation
@@ -421,17 +425,13 @@ paths:
             schema:
               type: object
               properties: 
-                name:
-                  type: string
-                  example: John Bravo
                 username:
                   type: string
-                  example: johnnybravo
+                  example: Buddy
                 password:
                   type: string
-                  example: passWORD1023%%
+                  example: password01
               required:
-                - name
                 - username
                 - password
         required: true
@@ -454,6 +454,11 @@ paths:
         '400':
           description: Invalid request
 components:
+  securitySchemes:
+      BearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
   schemas:
     Product:
         properties:
@@ -538,7 +543,7 @@ components:
               example: John Bravo
             username:
               type: string
-              example: johnnybravo
+              example: Buddy
             password:
               type: string
               example: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
