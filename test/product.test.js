@@ -54,21 +54,65 @@ describe('PRODUCTS', () => {
         })).to.be.true;
     });
 
+    it('should handle create product request error', async () => {
+        const req = {
+            body: {
+                name: 'Test Product',
+                price: '10.99',
+                description: 'Test description'
+            },
+            file: { path: '/mock/path/image.jpg' }
+        };
+
+        sinon.stub(Product, 'create').rejects();
+
+        await createProduct(req, res);
+
+        expect(res.status.calledWith(400)).to.be.true;
+    });
+
     it('should get all products', async () => {
-        sinon.stub(Product, 'findAll').resolves([
-            {
-                id: 1,
-                name: 'Wallet',
-                price: parseFloat('100'),
-                description: 'test description',
-                imageURL: null
+        const req = {
+            query: {
+                page: 1,
+                rows: 2
             }
-        ]);
+        };
 
-        await getAllProducts(null, res);
+        const products = {
+            count: 1,
+            rows: [
+                {
+                    id: 1,
+                    name: 'Wallet',
+                    price: parseFloat('100'),
+                    description: 'test description',
+                    imageURL: null
+                }
+            ]
+        };
 
-        expect(res.status.calledWith(200)).to.be.true;
-        expect(res.json.firstCall.args[0]).to.be.an('array');
+        sinon.stub(Product, 'findAndCountAll').resolves(products);
+
+        await getAllProducts(req, res);
+
+        expect(res.status.calledOnceWith(200)).to.be.true;
+        expect(res.json.firstCall.args[0].products).to.be.an('array');
+    });
+
+    it('should handle get products request error', async () => {
+        const req = {
+            query: {
+                page: 1,
+                rows: 2
+            }
+        };
+
+        sinon.stub(Product, 'findAndCountAll').rejects();
+
+        await getAllProducts(req, res);
+
+        expect(res.status.calledOnceWith(400)).to.be.true;
     });
 
     it('should get a product by id', async () => {
@@ -88,6 +132,18 @@ describe('PRODUCTS', () => {
 
         expect(res.status.calledWith(200)).to.be.true;
         expect(res.json.firstCall.args[0]).to.be.an('object');
+    });
+
+    it('should handle get product by id error', async () => {
+        const req = {
+            params: { productId: 5 }
+        };
+        
+        sinon.stub(Product, 'findByPk').rejects();
+
+        await getProductById(req, res);
+
+        expect(res.status.calledWith(400)).to.be.true;
     });
 
     it('should update a product', async () => {

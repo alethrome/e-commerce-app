@@ -78,6 +78,8 @@ paths:
       tags:
         - Product
       description: Get product by ID
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: productId
@@ -99,6 +101,8 @@ paths:
       tags:
         - Product
       description: Update product
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: productId
@@ -147,6 +151,8 @@ paths:
       tags:
         - Product
       description: Delete a product
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: productId
@@ -179,6 +185,8 @@ paths:
       tags:
         - Cart
       description: Create new cart item
+      security:
+        - BearerAuth: []
       requestBody:
         description: Create new cart item
         content:
@@ -219,6 +227,8 @@ paths:
       tags:
         - Cart
       description: Items in cart
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -235,6 +245,8 @@ paths:
       tags:
         - Cart
       description: Update cart item quantity
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: cartId
@@ -269,6 +281,8 @@ paths:
       tags:
         - Cart
       description: Remove item from cart
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: cartId
@@ -300,6 +314,8 @@ paths:
       tags:
         - Order
       description: Create new cart item
+      security:
+        - BearerAuth: []
       requestBody:
         description: Create new cart item
         content:
@@ -340,6 +356,8 @@ paths:
       tags:
         - Order
       description: Order list
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -356,6 +374,8 @@ paths:
       tags:
         - Order
       description: Order record
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: orderId
@@ -371,11 +391,69 @@ paths:
                 $ref: '#/components/schemas/Order'
         '400':
           description: Invalid request
+  /order/pay/{orderId}:
+    patch:
+      tags:
+        - Order
+      description: Pay order
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: input payment information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                card_holder:
+                  type: string
+                  example: John Bravo
+                card_number:
+                  type: string
+                  example: 53989204
+                exp_date:
+                  type: string
+                  example: 09/27
+                cvv:
+                  type: number
+                  example: 434
+              required:
+                - card_holder
+                - card_number
+                - exp_date
+                - cvv
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
+                    message:
+                      type: string
+                      example: Order number 2 is paid.
+                    updatedOrder:
+                      $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid request
   /user/register:
     post:
       tags:
         - User
       description: Register new user
+      security:
+        - BearerAuth: []
       requestBody:
         description: Register new user
         content:
@@ -418,6 +496,8 @@ paths:
       tags:
         - User
       description: Login user
+      security:
+        - BearerAuth: []
       requestBody:
         description: Login user
         content:

@@ -181,7 +181,7 @@ async function payOrder(req, res) {
         return res.status(200).json({
             success: true,
             message: `Order number ${req.params.orderId} is paid`,
-            updatedOrder
+            updatedOrder: updatedOrder[1]
         });
     } catch(err) {
         logger.error(`Error fetching order: ${err.message}`);

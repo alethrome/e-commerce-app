@@ -27,10 +27,10 @@ async function createProduct(req, res) {
     }  
 };
 
-async function getAllProductsWithPagination(req, res) {
+async function getAllProducts(req, res) {
     try {
         const page = req.query.page || 1; 
-        const rows = req.query.pageSize || 2; 
+        const rows = req.query.rows || 2; 
 
         const offset = (page - 1) * rows;
 
@@ -41,26 +41,21 @@ async function getAllProductsWithPagination(req, res) {
         });
 
         const totalCount = products.count;
-        const totalPages = Math.ceil(totalCount / pageSize); 
-        const currentPage = page;
-
         return res.status(200).json({
             success: true,
-            currentPage: currentPage,
-            totalPages: totalPages,
             totalCount: totalCount,
             products: products.rows 
         });
     } catch (err) {
         console.error(`Error fetching products: ${err.message}`);
-        return res.status(500).json({
+        return res.status(400).json({
             success: false,
             message: `Error fetching products: ${err.message}`
         });
     }
 }
 
-async function getAllProducts(req, res) {
+/*async function getAllProducts(req, res) {
     try {
         const products = await Product.findAll();
 
@@ -72,7 +67,7 @@ async function getAllProducts(req, res) {
             message: err.message
         });
     }
-};
+}; */
 
 async function getProductById(req, res) {
     try {
@@ -187,6 +182,5 @@ module.exports = {
     getAllProducts,
     getProductById,
     updateProduct,
-    deleteProduct,
-    getAllProductsWithPagination
+    deleteProduct
 }
